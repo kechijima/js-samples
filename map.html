@@ -14,19 +14,10 @@
             </button>
         </div>
         <div class="txt-margin">
-            <p>緯度：<input type="text" id="latitude">???<span>度</span></p>
-            <p>経度：<input type="text"  id="longitude">???<span>度</span></p>
-        </div>
-        <div>
-          <input type="button" value="住所取得" onclick="getAddress();">
-          <br /><br />
-          ★結果★<br />
-          <textarea id="addressOutput" rows="3" cols="26"></textarea>
+            <p>緯度：<span id="latitude">???</span><span>度</span></p>
+            <p>経度：<span id="longitude">???</span><span>度</span></p>
         </div>
     </div>
-    <script src="geolocation.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap">
-    </script>
+    <script type="module" src="./index.ts"></script>
 </body>
 </html>
