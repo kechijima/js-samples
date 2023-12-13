@@ -26,7 +26,7 @@ function getAddress(){
     //入力した緯度・経度を取得します。
     var idoInput = document.getElementById('latitude').value;
     var keidoInput = document.getElementById('longitude').value;
-    console.log(idoInput);
+    console.log('idoInput',idoInput);
     
     //緯度・経度をLatLngクラスに変換します。
     var latLngInput = new google.maps.LatLng(idoInput, keidoInput);
