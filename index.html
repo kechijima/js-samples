@@ -2,31 +2,64 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Geolocation Sample</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <title>LIFF Geolocation Sample</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
+        <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     </head>
     <body>
-        <div class="center">
-            <div class="btn-margin">
-                <button id="btn" class="btn btn-outline-primary btn-lg">
-                    現在位置を取得する
-                </button>
-            </div>
-            <div class="txt-margin">
-                <p>緯度：<input type="text" id="latitude">???<span>度</span></p>
-                <p>経度：<input type="text"  id="longitude">???<span>度</span></p>
-            </div>
+        <div class="container mt-5">
             <div>
-            <input type="button" value="住所取得" onclick="getAddress();">
-            <br /><br />
-            ★結果★<br />
-            <textarea id="addressOutput" rows="3" cols="26"></textarea>
+                <input type="text" id="latitude" name="latitude" class="form-control">
+                <input type="text" id="longitude" name="longitude" class="form-control">
+                <input type="text" id="addressOutput" name="addressOutput" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="projectName">案件名</label>
+                <select id="projectName" class="form-control" name="projectName" multiple>
+                    <!-- オプションはJavaScriptで追加されます -->
+                </select>
+            </div>
+
+            <input type="submit" class="mt-4 btn btn-primary" value="送信">
         </div>
         <script src="geolocation.js"></script>
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8ChI9C6VxVMDE-shBZDSczO7PFa_TnHM&callback=initMap">
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+        <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+        <script>
+        
+        liff.init({ liffId: "1657533119-M5aZajBj" })
+        .then(() => {
+            $('form').submit(function (e) {
+                e.preventDefault();
+                const latitude = $('input[name="latitude"]').val();
+                const longitude = $('input[name="longitude"]').val();
+                const addressOutput = $('input[name="addressOutput"]').val(); // 修正
+                const projectName = $('input[name="projectName"]:value').val(); // 修正
+                
+                const msg = `出勤\n${latitude}\n${longitude}\n${addressOutput}\n${projectName}`;
+                console.log('msg',msg)
+                liff.sendMessages([{
+                    'type': 'text',
+                    'text': msg
+                }]).then(() => {
+                    liff.closeWindow();
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        })
+        .catch((err) => {
+            console.log('LIFF Initialization failed ', err);
+        });
         </script>
     </body>
 </html>

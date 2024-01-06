@@ -1,9 +1,32 @@
-// ボタンを押した時の処理
-document.getElementById("btn").onclick = function(){
-    // 位置情報を取得する
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    console.log(navigator.geolocation.getCurrentPosition(successCallback, errorCallback));
-};
+// windowを開いた時の処理
+window.addEventListener('DOMContentLoaded', function () {
+  // 位置情報を取得する
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  console.log(navigator.geolocation.getCurrentPosition(successCallback, errorCallback));
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // JSONデータの例
+  const projectsData = [
+      { name: "案件1", value: "案件1" },
+      { name: "案件2", value: "案件2" },
+      { name: "案件3", value: "案件3" },
+      { name: "案件4", value: "案件4" },
+      // その他の案件データ
+  ];
+
+  // セレクトボックスを取得
+  const selectElement = document.getElementById('projectName');
+
+  // JSONデータからオプションを生成して追加
+  projectsData.forEach(project => {
+      const option = document.createElement('option');
+      option.text = project.name;
+      option.value = project.value;
+      selectElement.appendChild(option);
+  });
+});
 
 // 取得に成功した場合の処理
 function successCallback(position){
@@ -21,7 +44,7 @@ function errorCallback(error){
     alert("位置情報が取得できませんでした");
 };
 
-function getAddress(){
+window.onload= function(){
   
     //入力した緯度・経度を取得します。
     var idoInput = document.getElementById('latitude').value;
@@ -71,3 +94,5 @@ function getAddress(){
       });
   
   }
+
+  
